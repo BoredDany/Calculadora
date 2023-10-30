@@ -23,11 +23,21 @@ public class Calculadora {
         try {
             Stack<Double> numeros = new Stack<>();
             Stack<Character> operadores = new Stack<>();
-
             for (int i = 0; i < expresion.length(); i++) {
                 char caracter = expresion.charAt(i);
-
                 if (Character.isDigit(caracter)) {
+                    // Verificar si el número es decimal
+                    StringBuilder num = new StringBuilder();
+                    num.append(caracter);
+                    int j = i + 1;
+                    while (j < expresion.length() && (Character.isDigit(expresion.charAt(j)) || expresion.charAt(j) == '.')) {
+                        num.append(expresion.charAt(j));
+                        j++;
+                    }
+                    i = j - 1;
+                    double numero = Double.parseDouble(num.toString());
+                    numeros.push(numero);
+                } else if (Character.isDigit(caracter) ) {
                     double numero = Character.getNumericValue(caracter);
                     numeros.push(numero);
                 } else if (caracter == '+' || caracter == '-' || caracter == '*' || caracter == '/') {
